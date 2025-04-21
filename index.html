@@ -1,293 +1,276 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elzatona Nurse - الدخول</title>
-  <style>
-    /* Added Google Font link for 'Cairo' */
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elzatona Nurse - الدخول</title>
+  <style>
+    /* --- بداية قسم CSS --- */
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: #f1f4f8;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      direction: rtl; /* Ensure RTL direction */
-    }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f1f4f8;
+      margin: 0;
+      padding: 20px;
+      display: flex; /* مهم للوسطنة */
+      justify-content: center; /* مهم للوسطنة */
+      align-items: center; /* مهم للوسطنة */
+      min-height: 100vh; /* مهم للوسطنة */
+      direction: rtl; /* مهم لاتجاه النص العربي */
+    }
 
-    .container {
-      background: #ffffff;
-      padding: 35px 25px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 450px;
-      box-sizing: border-box;
-      text-align: right; /* Align text to right */
-    }
+    .container {
+      background: #ffffff;
+      padding: 35px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px; /* يحدد عرض الصندوق */
+      box-sizing: border-box;
+      text-align: right; /* محاذاة النص الداخلي لليمين */
+    }
 
-    h2 {
-        text-align: center; /* Center the heading */
-        color: #333;
-        margin-bottom: 25px;
-        font-family: 'Cairo', sans-serif; /* Ensure font */
-    }
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 25px;
+        font-family: 'Cairo', sans-serif;
+    }
 
-    input, button {
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      box-sizing: border-box;
-      font-family: 'Cairo', sans-serif; /* Ensure font in input/button */
-      text-align: right; /* Right align text in inputs */
-    }
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+      text-align: right;
+    }
 
-    /* Style placeholder text */
-    input::placeholder {
-        color: #999;
-        text-align: right;
-    }
+    input::placeholder {
+        color: #999;
+        text-align: right;
+    }
 
-    button {
-      background-color: #28a745;
-      color: white;
-      cursor: pointer;
-      border: none;
-      transition: background-color 0.3s ease; /* Smoother transition */
-      font-weight: bold;
-    }
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+    }
 
-    button:hover {
-      background-color: #218838;
-    }
+    button:hover {
+      background-color: #218838;
+    }
 
-    /* Add loading indicator style */
-    button.loading {
-        background-color: #aaa; /* Grey background */
-        cursor: not-allowed; /* Indicate it's busy */
-    }
-    button.loading::after {
-        content: ' ...'; /* Add dots */
-    }
+    button.loading {
+        background-color: #aaa;
+        cursor: not-allowed;
+    }
+    button.loading::after {
+        content: ' ...';
+    }
 
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 15px;
+      text-align: center;
+      min-height: 20px;
+      word-wrap: break-word;
+      color: red; /* Default: Error */
+    }
+    .message.success { color: green; }
+    .message.info { color: #555; }
 
-    .message {
-      margin-top: 15px;
-      font-weight: bold;
-      font-size: 15px;
-      text-align: center;
-      min-height: 20px; /* Prevent layout shift */
-      word-wrap: break-word; /* Wrap long messages */
-      color: red; /* Default message color to red for errors */
-    }
+    .info-box {
+      background: #fff3cd;
+      color: #856404;
+      padding: 15px;
+      margin-top: 25px;
+      border: 1px solid #ffeeba;
+      border-radius: 8px;
+      font-size: 15px;
+      text-align: right;
+    }
 
-    .message.success {
-        color: green; /* Green for success messages */
-    }
-     .message.info {
-         color: #555; /* Dark grey for info messages */
-     }
+     .info-box p { margin-bottom: 10px; }
+     ul { padding-right: 20px; margin-top: 5px; margin-bottom: 15px; }
+     li { margin-bottom: 5px; }
 
+    .free-offer {
+        color:#D9534F; /* Red color for urgency */
+        font-weight: bold;
+        text-align: center;
+        margin-top: 15px;
+        font-size: 1.1em; /* Slightly larger font */
+    }
 
-    .info-box {
-      background: #fff3cd;
-      color: #856404;
-      padding: 15px;
-      margin-top: 25px; /* Increased margin */
-      border: 1px solid #ffeeba;
-      border-radius: 8px;
-      font-size: 15px;
-      text-align: right;
-    }
+    /* Style for the countdown timer */
+    #countdown-timer {
+        background-color: #d9534f; /* Red background */
+        color: white; /* White text */
+        padding: 10px;
+        margin-top: 15px;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.5;
+    }
+     #countdown-timer span {
+         display: inline-block;
+         margin: 0 5px; /* Spacing around numbers/units */
+     }
 
-     .info-box p {
-         margin-bottom: 10px; /* Spacing between paragraphs */
-     }
-
-    ul {
-      padding-right: 20px; /* Keep list indentation */
-      margin-top: 5px;
-      margin-bottom: 15px; /* Add space after list */
-    }
-
-    li {
-        margin-bottom: 5px; /* Space between list items */
-    }
-
-    .free-offer { /* Style for the free offer emphasis */
-        color:#155724;
-        font-weight: bold;
-        text-align: center; /* Center the offer text */
-        margin-top: 15px;
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 25px 20px;
-      }
-
-      input, button {
-        font-size: 15px;
-      }
-
-      .info-box {
-        font-size: 14px;
-      }
-       h2 {
-           font-size: 1.5em; /* Adjust heading size on smaller screens */
-       }
-    }
-  </style>
+    @media (max-width: 480px) {
+      .container { padding: 25px 20px; }
+      input, button { font-size: 15px; }
+      .info-box { font-size: 14px; }
+      h2 { font-size: 1.5em; }
+      #countdown-timer { font-size: 14px; }
+    }
+    /* --- نهاية قسم CSS --- */
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Elzatona Nurse</h2>
-    <input type="tel" id="phone" placeholder="رقم الموبايل (01xxxxxxxxx)">
-    <input type="text" id="code" placeholder="كود التفعيل (مثال: ZAT123456)">
-    <button id="loginButton" onclick="verifyAndRedirect()">تسجيل الدخول</button>
-    <div class="message" id="message"></div>
+  <div class="container">
+    <h2>Elzatona Nurse</h2>
+    <input type="tel" id="phone" placeholder="رقم الموبايل (01xxxxxxxxx)">
+    <input type="text" id="code" placeholder="كود التفعيل (مثال: ZAT123456)">
+    <button id="loginButton" onclick="verifyAndRedirect()">تسجيل الدخول</button>
+    <div class="message" id="message"></div>
 
-    <div class="info-box">
-      <p>برنامج Elzatona Nurse معمول مخصوص علشان يساعد طلاب <strong>كلية التمريض</strong> على الفهم والمذاكرة بطريقة سهلة وسريعة، وباللغة اللي بتتكلموها.</p>
-      <p>لكن تشغيل النظام بيحتاج <strong>مصاريف تشغيل كبيرة</strong> علشان يفضل شغّال بكفاءة ومتاح ليك طول الوقت.</p>
-            <p><strong>العرض المجاني متاح حالياً حتى تاريخ 30/4/2025.</strong> بعد هذا التاريخ، سيتطلب استخدام النظام الاشتراك.</p>
-      <p>نظام الاشتراكات لمساعدتنا على الاستمرار:</p>
-      <ul>
-        <li>✅ شهر = <strong>100 جنيه</strong></li>
-        <li>✅ شهرين = <strong>150 جنيه</strong> (بدل 200)</li>
-        <li>✅ ثلاث شهور + شهر هدية (إجمالي 4 شهور) = <strong>200 جنيه</strong> (بدل 400)</li>
-      </ul>
-      </div>
-  </div>
+    <div class="info-box">
+      <p>برنامج Elzatona Nurse معمول مخصوص علشان يساعد طلاب <strong>كلية التمريض</strong> على الفهم والمذاكرة بطريقة سهلة وسريعة، وباللغة اللي بتتكلموها.</p>
+      <p>لكن تشغيل النظام بيحتاج <strong>مصاريف تشغيل كبيرة</strong> علشان يفضل شغّال بكفاءة ومتاح ليك طول الوقت.</p>
 
-  <script>
-    async function verifyAndRedirect() {
-      const phoneInput = document.getElementById('phone');
-      const codeInput = document.getElementById('code');
-      const message = document.getElementById('message');
-      const loginButton = document.getElementById('loginButton'); // Get the button
+      <p style="color:#155724; font-weight: bold;">🎉 عرض خاص! البرنامج مجاني تمامًا حتى نهاية يوم 30 أبريل 2025!</p>
+      <div id="countdown-timer">جاري تحميل وقت انتهاء العرض...</div>
+      <p class="free-offer">استغل الفرصة وادخل الآن مجانًا قبل انتهاء العرض!</p>
+      <p style="margin-top: 20px;">بعد انتهاء العرض، سيكون بنظام الاشتراكات التالي لمساعدتنا على الاستمرار:</p>
+      <ul>
+        <li>✅ شهر = <strong>100 جنيه</strong></li>
+        <li>✅ شهرين = <strong>150 جنيه</strong> (بدل 200)</li>
+        <li>✅ ثلاث شهور + شهر هدية (إجمالي 4 شهور) = <strong>200 جنيه</strong> (بدل 400)</li>
+      </ul>
+    </div>
+  </div> <script>
+    // --- دالة التحقق وتسجيل الدخول ---
+    async function verifyAndRedirect() {
+        const phoneInput = document.getElementById('phone');
+        const codeInput = document.getElementById('code');
+        const message = document.getElementById('message');
+        const loginButton = document.getElementById('loginButton');
+        const phone = phoneInput.value.trim();
+        const code = codeInput.value.trim().toUpperCase();
 
-      const phone = phoneInput.value.trim();
-      const code = codeInput.value.trim().toUpperCase(); // Convert code to uppercase to avoid case sensitivity issues (ZAT vs zat)
+        message.textContent = '';
+        message.className = 'message';
 
-      // Reset message style
-      message.textContent = '';
-      message.className = 'message'; // Reset to default (error style)
+        if (!phone || !code) {
+            message.textContent = 'من فضلك املأ رقم الموبايل وكود التفعيل.';
+            return;
+        }
+        const phoneRegex = /^01[0-9]{9}$/;
+        if (!phoneRegex.test(phone)) {
+            message.textContent = 'صيغة رقم الموبايل غير صحيحة (يجب أن تكون 11 رقم وتبدأ بـ 01).';
+            return;
+        }
+        const codeRegex = /^ZAT[0-9]{6}$/i;
+        if (!codeRegex.test(code)) {
+            message.textContent = 'صيغة كود التفعيل غير صحيحة (يجب أن تكون ZAT متبوعة بـ 6 أرقام).';
+            return;
+        }
 
-      if (!phone || !code) {
-        message.textContent = 'من فضلك املأ رقم الموبايل وكود التفعيل.';
-        return;
-      }
+        loginButton.disabled = true;
+        loginButton.classList.add('loading');
+        message.textContent = 'جاري التحقق...';
+        message.className = 'message info';
 
-      // Basic validation for Egyptian phone number format (optional but recommended)
-      const phoneRegex = /^01[0-9]{9}$/;
-      if (!phoneRegex.test(phone)) {
-          message.textContent = 'صيغة رقم الموبايل غير صحيحة (يجب أن تكون 11 رقم وتبدأ بـ 01).';
-          return;
-      }
+        const scriptURL = `https://script.google.com/macros/s/AKfycbzguaT2q6Sj0dekHoKG5H-RHPW_IWyE-7M61vixtIIUHRs1bFfOfMDRphu4xwDsIA3v/exec?phone=${encodeURIComponent(phone)}&code=${encodeURIComponent(code)}`;
 
-       // Basic validation for code format (Optional)
-       const codeRegex = /^ZAT[0-9]{6}$/i; // Starts with ZAT (case-insensitive), followed by 6 digits
-        if (!codeRegex.test(code)) {
-            message.textContent = 'صيغة كود التفعيل غير صحيحة (يجب أن تكون ZAT متبوعة بـ 6 أرقام).';
-            return;
-        }
+        try {
+            const response = await fetch(scriptURL);
+            if (!response.ok) {
+                let errorData = { message: `فشل الاتصال بالخادم (خطأ ${response.status})` };
+                try {
+                    const errorJson = await response.json();
+                    if (errorJson && errorJson.message) { errorData.message = errorJson.message; }
+                } catch (e) { console.log("Response was not JSON or failed to parse: ", e); }
+                 throw new Error(errorData.message);
+            }
+            const data = await response.json();
+            if (data.status === "success" && data.gpt) {
+                message.textContent = 'تم التحقق بنجاح، جاري تحويلك الآن...';
+                message.className = 'message success';
+                setTimeout(() => {
+                    try { window.location.href = data.gpt; }
+                    catch (redirectError) {
+                        console.error("Redirection failed: ", redirectError);
+                        message.textContent = 'فشل التحويل التلقائي. حاول تحديث الصفحة.';
+                        message.className = 'message';
+                        loginButton.disabled = false;
+                        loginButton.classList.remove('loading');
+                    }
+                }, 1500);
+            } else {
+                 throw new Error(data.message || 'فشل التحقق. استجابة غير متوقعة من الخادم.');
+            }
+        } catch (error) {
+            console.error('Error during fetch or processing:', error);
+            message.textContent = error.message || 'حدث خطأ. برجاء المحاولة مرة أخرى لاحقًا.';
+            message.className = 'message';
+            loginButton.disabled = false;
+            loginButton.classList.remove('loading');
+        }
+    }
 
+    // --- كود العداد التنازلي ---
+    const countdownElement = document.getElementById('countdown-timer');
+    const endDate = new Date("2025-05-01T00:00:00").getTime(); // نهاية 30 أبريل = بداية 1 مايو
 
-      // Disable button and show loading state
-      loginButton.disabled = true;
-      loginButton.classList.add('loading'); // Add class for visual feedback
-      message.textContent = 'جاري التحقق...';
-      message.className = 'message info'; // Use info style for loading message
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = endDate - now;
 
+        if (distance < 0) {
+            clearInterval(countdownInterval);
+            if(countdownElement) { // Check if element exists before updating
+               countdownElement.innerHTML = "انتهى العرض المجاني!";
+            }
+            return;
+        }
 
-      // *** الرابط الذي زودتنا به موجود هنا ***
-      const scriptURL = `https://script.google.com/macros/s/AKfycbzguaT2q6Sj0dekHoKG5H-RHPW_IWyE-7M61vixtIIUHRs1bFfOfMDRphu4xwDsIA3v/exec?phone=${encodeURIComponent(phone)}&code=${encodeURIComponent(code)}`; // Code is already uppercase
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      try {
-        // Using POST method is generally better for sending data like phone/code
-        // If your Apps Script doGet is complex or you prefer POST:
-        /*
-        const response = await fetch(scriptURL, {
-          method: 'POST', // Requires Apps Script to use doPost(e)
-          mode: 'cors', // Needed if your script requires it
-          cache: 'no-cache',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          redirect: 'follow',
-          body: JSON.stringify({ phone: phone, code: code }) // Send data in body
-        });
-        // Note: If using POST, Apps Script doPost(e) needs to parse the body:
-        // const params = JSON.parse(e.postData.contents);
-        // const phone = params.phone;
-        // const code = params.code;
-        */
+         if(countdownElement) { // Check if element exists before updating
+            countdownElement.innerHTML = `
+                <span> ينتهي العرض خلال: </span>
+                <span> ${days} يوم </span>
+                <span> ${hours} ساعة </span>
+                <span> ${minutes} دقيقة </span>
+                <span> ${seconds} ثانية </span>
+            `;
+         }
+    }
 
-        // Sticking to GET as per the original setup and script provided
-        const response = await fetch(scriptURL);
+    // Check if element exists before starting interval
+    if (countdownElement) {
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Run once immediately
+    } else {
+        console.error("Countdown timer element not found!");
+    }
 
-        // Check HTTP status first
-        if (!response.ok) {
-            // Try to get more specific error from response body if possible
-            let errorData = { message: `فشل الاتصال بالخادم (خطأ ${response.status})` };
-            try {
-                // Try to parse potential JSON error response from Apps Script
-                const errorJson = await response.json();
-                if (errorJson && errorJson.message) {
-                    errorData.message = errorJson.message;
-                }
-            } catch (e) {
-                // Response wasn't JSON or other error, stick to default message
-                console.error("Response was not JSON or failed to parse: ", e); // Log for debugging
-            }
-             throw new Error(errorData.message); // Throw error with the message
-        }
-
-        // If response.ok, then parse the JSON data
-        const data = await response.json();
-
-        if (data.status === "success" && data.gpt) {
-          message.textContent = 'تم التحقق بنجاح، جاري تحويلك الآن...';
-          message.className = 'message success'; // Use success style
-          // Redirect after a short delay
-          setTimeout(() => {
-            try {
-                window.location.href = data.gpt;
-            } catch (redirectError) {
-                console.error("Redirection failed: ", redirectError);
-                message.textContent = 'فشل التحويل التلقائي. حاول تحديث الصفحة.';
-                message.className = 'message'; // Error style
-                loginButton.disabled = false; // Re-enable button if redirect fails
-                loginButton.classList.remove('loading');
-            }
-          }, 1500); // 1.5 seconds delay
-
-        } else {
-          // Use the message from the backend response if status is not 'success'
-           throw new Error(data.message || 'فشل التحقق. استجابة غير متوقعة من الخادم.');
-        }
-
-      } catch (error) {
-        console.error('Error during fetch or processing:', error); // Log the actual error for debugging
-        message.textContent = error.message || 'حدث خطأ. برجاء المحاولة مرة أخرى لاحقًا.'; // Display the error message
-        message.className = 'message'; // Ensure error style
-
-        // Re-enable button only after error
-        loginButton.disabled = false;
-        loginButton.classList.remove('loading');
-      }
-      // Note: Button remains disabled on success as the page should redirect.
-      // It's re-enabled only if there's an error or redirection fails.
-    }
-  </script>
+  </script>
 </body>
 </html>
