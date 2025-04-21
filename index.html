@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elzatona Nurse - الدخول</title>
+  <style>
+    /* Added Google Font link for 'Cairo' */
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f1f4f8;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      direction: rtl; /* Ensure RTL direction */
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 35px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+      box-sizing: border-box;
+      text-align: right; /* Align text to right */
+    }
+
+    h2 {
+        text-align: center; /* Center the heading */
+        color: #333;
+        margin-bottom: 25px;
+        font-family: 'Cairo', sans-serif; /* Ensure font */
+    }
+
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif; /* Ensure font in input/button */
+      text-align: right; /* Right align text in inputs */
+    }
+
+    /* Style placeholder text */
+    input::placeholder {
+        color: #999;
+        text-align: right;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease; /* Smoother transition */
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    /* Add loading indicator style */
+    button.loading {
+        background-color: #aaa; /* Grey background */
+        cursor: not-allowed; /* Indicate it's busy */
+    }
+    button.loading::after {
+        content: ' ...'; /* Add dots */
+    }
+
+
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 15px;
+      text-align: center;
+      min-height: 20px; /* Prevent layout shift */
+      word-wrap: break-word; /* Wrap long messages */
+      color: red; /* Default message color to red for errors */
+    }
+
+    .message.success {
+        color: green; /* Green for success messages */
+    }
+     .message.info {
+         color: #555; /* Dark grey for info messages */
+     }
+
+
+    .info-box {
+      background: #fff3cd;
+      color: #856404;
+      padding: 15px;
+      margin-top: 25px; /* Increased margin */
+      border: 1px solid #ffeeba;
+      border-radius: 8px;
+      font-size: 15px;
+      text-align: right;
+    }
+
+     .info-box p {
+         margin-bottom: 10px; /* Spacing between paragraphs */
+     }
+
+    ul {
+      padding-right: 20px; /* Keep list indentation */
+      margin-top: 5px;
+      margin-bottom: 15px; /* Add space after list */
+    }
+
+    li {
+        margin-bottom: 5px; /* Space between list items */
+    }
+
+    .free-offer { /* Style for the free offer emphasis */
+        color:#155724;
+        font-weight: bold;
+        text-align: center; /* Center the offer text */
+        margin-top: 15px;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px 20px;
+      }
+
+      input, button {
+        font-size: 15px;
+      }
+
+      .info-box {
+        font-size: 14px;
+      }
+       h2 {
+           font-size: 1.5em; /* Adjust heading size on smaller screens */
+       }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Elzatona Nurse</h2>
+    <input type="tel" id="phone" placeholder="رقم الموبايل (01xxxxxxxxx)">
+    <input type="text" id="code" placeholder="كود التفعيل (مثال: ZAT123456)">
+    <button id="loginButton" onclick="verifyAndRedirect()">تسجيل الدخول</button>
+    <div class="message" id="message"></div>
+
+    <div class="info-box">
+      <p>برنامج Elzatona Nurse معمول مخصوص علشان يساعد طلاب <strong>كلية التمريض</strong> على الفهم والمذاكرة بطريقة سهلة وسريعة، وباللغة اللي بتتكلموها.</p>
+      <p>لكن تشغيل النظام بيحتاج <strong>مصاريف تشغيل كبيرة</strong> علشان يفضل شغّال بكفاءة ومتاح ليك طول الوقت.</p>
+            <p><strong>العرض المجاني متاح حالياً حتى تاريخ 30/4/2025.</strong> بعد هذا التاريخ، سيتطلب استخدام النظام الاشتراك.</p>
+      <p>نظام الاشتراكات لمساعدتنا على الاستمرار:</p>
+      <ul>
+        <li>✅ شهر = <strong>100 جنيه</strong></li>
+        <li>✅ شهرين = <strong>150 جنيه</strong> (بدل 200)</li>
+        <li>✅ ثلاث شهور + شهر هدية (إجمالي 4 شهور) = <strong>200 جنيه</strong> (بدل 400)</li>
+      </ul>
+      </div>
+  </div>
+
+  <script>
+    async function verifyAndRedirect() {
+      const phoneInput = document.getElementById('phone');
+      const codeInput = document.getElementById('code');
+      const message = document.getElementById('message');
+      const loginButton = document.getElementById('loginButton'); // Get the button
+
+      const phone = phoneInput.value.trim();
+      const code = codeInput.value.trim().toUpperCase(); // Convert code to uppercase to avoid case sensitivity issues (ZAT vs zat)
+
+      // Reset message style
+      message.textContent = '';
+      message.className = 'message'; // Reset to default (error style)
+
+      if (!phone || !code) {
+        message.textContent = 'من فضلك املأ رقم الموبايل وكود التفعيل.';
+        return;
+      }
+
+      // Basic validation for Egyptian phone number format (optional but recommended)
+      const phoneRegex = /^01[0-9]{9}$/;
+      if (!phoneRegex.test(phone)) {
+          message.textContent = 'صيغة رقم الموبايل غير صحيحة (يجب أن تكون 11 رقم وتبدأ بـ 01).';
+          return;
+      }
+
+       // Basic validation for code format (Optional)
+       const codeRegex = /^ZAT[0-9]{6}$/i; // Starts with ZAT (case-insensitive), followed by 6 digits
+        if (!codeRegex.test(code)) {
+            message.textContent = 'صيغة كود التفعيل غير صحيحة (يجب أن تكون ZAT متبوعة بـ 6 أرقام).';
+            return;
+        }
+
+
+      // Disable button and show loading state
+      loginButton.disabled = true;
+      loginButton.classList.add('loading'); // Add class for visual feedback
+      message.textContent = 'جاري التحقق...';
+      message.className = 'message info'; // Use info style for loading message
+
+
+      // *** الرابط الذي زودتنا به موجود هنا ***
+      const scriptURL = `https://script.google.com/macros/s/AKfycbzguaT2q6Sj0dekHoKG5H-RHPW_IWyE-7M61vixtIIUHRs1bFfOfMDRphu4xwDsIA3v/exec?phone=${encodeURIComponent(phone)}&code=${encodeURIComponent(code)}`; // Code is already uppercase
+
+      try {
+        // Using POST method is generally better for sending data like phone/code
+        // If your Apps Script doGet is complex or you prefer POST:
+        /*
+        const response = await fetch(scriptURL, {
+          method: 'POST', // Requires Apps Script to use doPost(e)
+          mode: 'cors', // Needed if your script requires it
+          cache: 'no-cache',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          redirect: 'follow',
+          body: JSON.stringify({ phone: phone, code: code }) // Send data in body
+        });
+        // Note: If using POST, Apps Script doPost(e) needs to parse the body:
+        // const params = JSON.parse(e.postData.contents);
+        // const phone = params.phone;
+        // const code = params.code;
+        */
+
+        // Sticking to GET as per the original setup and script provided
+        const response = await fetch(scriptURL);
+
+        // Check HTTP status first
+        if (!response.ok) {
+            // Try to get more specific error from response body if possible
+            let errorData = { message: `فشل الاتصال بالخادم (خطأ ${response.status})` };
+            try {
+                // Try to parse potential JSON error response from Apps Script
+                const errorJson = await response.json();
+                if (errorJson && errorJson.message) {
+                    errorData.message = errorJson.message;
+                }
+            } catch (e) {
+                // Response wasn't JSON or other error, stick to default message
+                console.error("Response was not JSON or failed to parse: ", e); // Log for debugging
+            }
+             throw new Error(errorData.message); // Throw error with the message
+        }
+
+        // If response.ok, then parse the JSON data
+        const data = await response.json();
+
+        if (data.status === "success" && data.gpt) {
+          message.textContent = 'تم التحقق بنجاح، جاري تحويلك الآن...';
+          message.className = 'message success'; // Use success style
+          // Redirect after a short delay
+          setTimeout(() => {
+            try {
+                window.location.href = data.gpt;
+            } catch (redirectError) {
+                console.error("Redirection failed: ", redirectError);
+                message.textContent = 'فشل التحويل التلقائي. حاول تحديث الصفحة.';
+                message.className = 'message'; // Error style
+                loginButton.disabled = false; // Re-enable button if redirect fails
+                loginButton.classList.remove('loading');
+            }
+          }, 1500); // 1.5 seconds delay
+
+        } else {
+          // Use the message from the backend response if status is not 'success'
+           throw new Error(data.message || 'فشل التحقق. استجابة غير متوقعة من الخادم.');
+        }
+
+      } catch (error) {
+        console.error('Error during fetch or processing:', error); // Log the actual error for debugging
+        message.textContent = error.message || 'حدث خطأ. برجاء المحاولة مرة أخرى لاحقًا.'; // Display the error message
+        message.className = 'message'; // Ensure error style
+
+        // Re-enable button only after error
+        loginButton.disabled = false;
+        loginButton.classList.remove('loading');
+      }
+      // Note: Button remains disabled on success as the page should redirect.
+      // It's re-enabled only if there's an error or redirection fails.
+    }
+  </script>
+</body>
+</html>
